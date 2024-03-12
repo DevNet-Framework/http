@@ -31,7 +31,7 @@ class MiddlewareFactory
 
             $interfaceNames = class_implements($middleware);
             if (!in_array(IMiddleware::class, $interfaceNames)) {
-                throw new TypeException("Middleware class must implement DevNet\Web\Hosting\IMiddleware", 0, 1);
+                throw new TypeException("Middleware class must implement DevNet\Http\Middleware\IMiddleware", 0, 1);
             }
         }
 
