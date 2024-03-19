@@ -10,11 +10,13 @@ namespace DevNet\Http\Message;
 
 class ContentType
 {
-    public static $Text = 'text/plain';
-    public static $Html = 'text/html';
-    public static $Png  = 'image/png';
-    public static $Pdf  = 'application/pdf';
-    public static $Json = 'application/json';
-    public static $Form = 'application/x-www-form-urlencoded';
-    public static $Data = 'multipart/form-data';
+    public const Html = 'text/html';
+    public const Text = 'text/plain';
+    public const Gif  = 'image/gif';
+    public const Png  = 'image/png';
+    public const Jpeg = 'image/jpeg';
+    public const Json = 'application/json';
+    public const Pdf  = 'application/pdf';
+    public const Form = 'application/x-www-form-urlencoded';
+    public const Data = 'multipart/form-data';
 }
