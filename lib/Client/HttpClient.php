@@ -8,7 +8,6 @@
 
 namespace DevNet\Http\Client;
 
-use DevNet\Http\Message\Headers;
 use DevNet\Http\Message\HttpRequest;
 use DevNet\System\Async\Task;
 use DevNet\System\PropertyTrait;
@@ -39,14 +38,16 @@ class HttpClient extends HttpClientHandler
             $url = $this->Options->BaseAddress . $url;
         }
 
-        $host    = parse_url($url, PHP_URL_HOST);
-        $headers = new Headers(['host' => $host]);
-        $request = new HttpRequest($method, $url, $headers);
+        $scheme = parse_url($url, PHP_URL_SCHEME);
+        if (!$scheme) {
+            $url = "http://" . $url;
+        }
 
+        $request = new HttpRequest($method, $url);
         $request->setProtocol($this->Options->HttpVersion);
         if ($requestContent) {
-            $request->Headers->add('content-type', $requestContent->ContentType);
-            $request->Headers->add('content-length', $requestContent->ContentLength);
+            $request->Headers->add('Content-Type', $requestContent->ContentType);
+            $request->Headers->add('Content-Length', $requestContent->ContentLength);
             $request->Body->write($requestContent->Content);
         }
 

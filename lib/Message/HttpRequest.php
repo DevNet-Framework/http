@@ -16,40 +16,18 @@ use DevNet\System\IO\Stream;
 class HttpRequest extends HttpMessage
 {
     private string $method;
-    private string $scheme;
-    private Host $host;
-    private string $path;
-    private Query $query;
+    private Url $url;
     private Form $form;
     public array $RouteValues = [];
 
-    public function __construct(
-        string $method,
-        string $url,
-        ?Headers $headers = null,
-        ?Stream $body = null,
-        ?Form $form = null
-    ) {
+    public function __construct(string $method, string $url, ?Headers $headers = null, ?Stream $body = null, ?Form $form = null)
+    {
         $this->method  = strtoupper($method);
-        $this->headers = $headers ?? new Headers();
+        $this->url     = new Url($url);
+        $this->headers = $headers ?? new Headers(['Host' => $this->url->Host]);
         $this->cookies = new Cookies($this->Headers);
         $this->body    = $body ?? new FileStream('php://temp', FileMode::Open, FileAccess::ReadWrite);
         $this->form    = $form ?? new Form();
-        $this->scheme  = (string) parse_url($url, PHP_URL_SCHEME);
-
-        if (!$this->scheme) {
-            $this->scheme = 'http';
-            $url = $this->scheme . '://' . $url;
-        }
-
-        $host = parse_url($url, PHP_URL_HOST);
-        $port = parse_url($url, PHP_URL_PORT);
-        $this->host = new Host($host, $port);
-
-        $this->path = parse_url($url, PHP_URL_PATH) ?? '/';
-
-        $query = parse_url($url, PHP_URL_QUERY);
-        $this->query = new Query($query);
     }
 
     public function get_Method(): string
@@ -57,33 +35,13 @@ class HttpRequest extends HttpMessage
         return $this->method;
     }
 
-    public function get_Scheme(): string
+    public function get_Url(): Url
     {
-        return $this->scheme;
-    }
-
-    public function get_Host(): Host
-    {
-        return $this->host;
-    }
-
-    public function get_Path(): string
-    {
-        return $this->path;
-    }
-
-    public function get_Query(): Query
-    {
-        return $this->query;
+        return $this->url;
     }
 
     public function get_Form(): Form
     {
         return $this->form;
-    }
-
-    public function set_Path(string $value): void
-    {
-        $this->path = $value;
     }
 }

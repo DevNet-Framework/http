@@ -15,11 +15,11 @@ class Host
     use PropertyTrait;
 
     private string $name;
-    private ?int $port;
+    private int $port;
 
-    public function __construct(?string $name = null, ?int $port = null)
+    public function __construct(string $name, int $port)
     {
-        $this->name = (string) $name;
+        $this->name = $name;
         $this->port = $port;
     }
 
@@ -35,7 +35,10 @@ class Host
 
     public function __toString(): string
     {
-        $host = $this->port ? $this->name . ':' . $this->port : $this->host;
-        return $host;
+        if ($this->port == 0 || $this->port == 80 || $this->port == 443) {
+            return $this->name;
+        }
+
+        return $this->name . ':' . $this->port;
     }
 }

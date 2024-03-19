@@ -8,8 +8,8 @@
 
 namespace DevNet\Http\Message;
 
-use Exception;
+use DevNet\System\Exceptions\SystemException;
 
-class HttpException extends Exception
+class HttpException extends SystemException
 {
 }

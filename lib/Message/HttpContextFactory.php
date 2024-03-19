@@ -25,10 +25,10 @@ class HttpContextFactory
     {
         $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
-        $uri = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $uri .= isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
-        $uri .= isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI']) ? strstr($_SERVER['REQUEST_URI'] . '?', '?', true) : '/';
-        $uri .= isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : null;
+        $url = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $url .= isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+        $url .= isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI']) ? strstr($_SERVER['REQUEST_URI'] . '?', '?', true) : '/';
+        $url .= isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : null;
 
         try {
             $headers = getallheaders();
@@ -60,7 +60,7 @@ class HttpContextFactory
         $headers = new Headers($headers);
         $body    = new FileStream('php://input', FileMode::Open, FileAccess::Read);
         $form    = new Form($_POST, $fileCollection);
-        $request = new HttpRequest($method, $uri, $headers, $body, $form);
+        $request = new HttpRequest($method, $url, $headers, $body, $form);
 
         if (isset($_SERVER['SERVER_PROTOCOL'])) {
             $request->setProtocol($_SERVER['SERVER_PROTOCOL']);
