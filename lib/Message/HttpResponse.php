@@ -114,7 +114,7 @@ class HttpResponse extends HttpMessage
         return $this->statusCode;
     }
 
-    public function setStatusCode(int $statusCode, string $reasonPhrase = null)
+    public function setStatusCode(int $statusCode, ?string $reasonPhrase = null)
     {
         if (!$reasonPhrase) {
             if (isset($this->messages[$statusCode])) {

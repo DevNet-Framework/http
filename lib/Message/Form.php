@@ -17,9 +17,9 @@ class Form
     private array $fields;
     private FormFileCollection $files;
 
-    public function __construct(array $fields = null, FormFileCollection $files = null)
+    public function __construct(array $fields = [], ?FormFileCollection $files = null)
     {
-        if (!$fields) {
+        if ($fields == []) {
             $fields = $_POST;
         }
 
