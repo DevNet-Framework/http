@@ -38,7 +38,7 @@ class Cookies
         return $this->Cookies[$name] ?? null;
     }
 
-    public function add(String $name, string $value, CookieOptions $options = null): void
+    public function add(String $name, string $value, ?CookieOptions $options = null): void
     {
         $cookie = "{$name}={$value};";
         if ($options) {
