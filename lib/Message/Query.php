@@ -10,25 +10,19 @@ namespace DevNet\Http\Message;
 
 use DevNet\System\Collections\Enumerator;
 use DevNet\System\Collections\IEnumerable;
-use DevNet\System\PropertyTrait;
 
 class Query implements IEnumerable
 {
-    use PropertyTrait;
-
     private string $queryString;
     private array $values;
+
+    public array $Values { get => $this->values; }
 
     public function __construct(?string $queryString = null)
     {
         $this->queryString = (string) $queryString;
         parse_str($this->queryString, $output);
         $this->values = $output;
-    }
-
-    public function get_Values(): array
-    {
-        return $this->values;
     }
 
     public function Contains(string $key): bool

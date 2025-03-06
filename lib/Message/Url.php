@@ -8,16 +8,17 @@
 
 namespace DevNet\Http\Message;
 
-use DevNet\System\PropertyTrait;
-
 class Url
 {
-    use PropertyTrait;
-
     private string $scheme;
     private Host $host;
-    public string $path;
+    private string $path;
     private Query $query;
+
+    public string $Scheme { get => $this->scheme; }
+    public Host $Host { get => $this->host; }
+    public string $Path { get => $this->path; set => $this->path = $value; }
+    public Query $Query { get => $this->query; }
 
     public function __construct(string $url)
     {
@@ -45,31 +46,6 @@ class Url
 
         $query = parse_url($url, PHP_URL_QUERY);
         $this->query = new Query($query);
-    }
-
-    public function get_Scheme(): string
-    {
-        return $this->scheme;
-    }
-
-    public function get_Host(): Host
-    {
-        return $this->host;
-    }
-
-    public function get_Path(): string
-    {
-        return $this->path;
-    }
-
-    public function get_Query(): Query
-    {
-        return $this->query;
-    }
-
-    public function set_Path(string $value): void
-    {
-        $this->path = $value;
     }
 
     public function __toString(): string

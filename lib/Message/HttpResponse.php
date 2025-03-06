@@ -95,6 +95,9 @@ class HttpResponse extends HttpMessage
     private string $reasonPhrase;
     private int $statusCode;
 
+    public string $ReasonPhrase { get => $this->reasonPhrase; }
+    public string $StatusCode { get => $this->statusCode; }
+
     public function __construct(?Headers $headers = null, ?Stream $body = null)
     {
         $this->headers      = $headers ?? new Headers();
@@ -102,16 +105,6 @@ class HttpResponse extends HttpMessage
         $this->body         = $body ?? new FileStream('php://temp', FileMode::Open, FileAccess::ReadWrite);
         $this->statusCode   = 200;
         $this->reasonPhrase = 'OK';
-    }
-
-    public function get_ReasonPhrase(): string
-    {
-        return $this->reasonPhrase;
-    }
-
-    public function get_StatusCode(): string
-    {
-        return $this->statusCode;
     }
 
     public function setStatusCode(int $statusCode, ?string $reasonPhrase = null)

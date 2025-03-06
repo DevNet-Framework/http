@@ -8,14 +8,13 @@
 
 namespace DevNet\Http\Message;
 
-use DevNet\System\PropertyTrait;
-
 class Form
 {
-    use PropertyTrait;
-
     private array $fields;
     private FormFileCollection $files;
+
+    public array $Fields { get => $this->fields; }
+    public FormFileCollection $Files { get => $this->files; }
 
     public function __construct(array $fields = [], ?FormFileCollection $files = null)
     {
@@ -29,16 +28,6 @@ class Form
 
         $this->fields = $fields;
         $this->files  = $files;
-    }
-
-    public function get_Fields(): array
-    {
-        return $this->fields;
-    }
-
-    public function get_Files(): FormFileCollection
-    {
-        return $this->files;
     }
 
     public function getValue(string $name)

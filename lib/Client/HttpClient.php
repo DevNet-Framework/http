@@ -10,13 +10,12 @@ namespace DevNet\Http\Client;
 
 use DevNet\Http\Message\HttpRequest;
 use DevNet\System\Async\Task;
-use DevNet\System\PropertyTrait;
 
 class HttpClient extends HttpClientHandler
 {
-    use PropertyTrait;
-
     protected HttpClientOptions $options;
+
+    public HttpClientOptions $Options { get => $this->options; }
 
     public function __construct(?HttpClientOptions $options = null)
     {
@@ -24,12 +23,7 @@ class HttpClient extends HttpClientHandler
             $options = new HttpClientOptions();
         }
 
-        $this->Options = $options;
-    }
-
-    public function get_Options(): HttpClientOptions
-    {
-        return $this->options;
+        $this->options = $options;
     }
 
     public function requestAsync(string $method, string $url, ?HttpRequestContent $requestContent = null): Task
