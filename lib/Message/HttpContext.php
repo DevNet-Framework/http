@@ -25,6 +25,6 @@ class HttpContext
         $this->Request  = $request;
         $this->Response = $response;
         $this->User     = new ClaimsIdentity(); // anonymous user
-        $this->Items    = new Dictionary('string', 'object');
+        $this->Items    = new Dictionary('object');
     }
 }
