@@ -24,7 +24,7 @@ class HttpClient extends HttpClientHandler
             $options = new HttpClientOptions();
         }
 
-        $this->Options = $options;
+        $this->options = $options;
     }
 
     public function get_Options(): HttpClientOptions
